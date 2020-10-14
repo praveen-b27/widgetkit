@@ -45,6 +45,7 @@ struct Covid19WidgetEntryView : View {
   }
 }
 
+@main
 struct Covid19Widget: Widget {
   private let kind: String = "Covid19Widget"
   
@@ -56,7 +57,20 @@ struct Covid19Widget: Widget {
     .configurationDisplayName("Covid Widget")
     .description("Show the latest details on the homescreen")
     .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-
+    
+//    IntentConfiguration(kind: kind, intent: Covid19WidgetIntent.self, provider: GlobalStatsIntentProvider()) { entry in
+//      Covid19WidgetEntryView(entry: entry)
+//    }
+//    .configurationDisplayName("Covid Widget")
+//    .description("Show the latest details on the homescreen")
+//    .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+//
+//    IntentConfiguration(kind: kind, intent: Covid19DynamicTypeIntent.self, provider: GlobalStatsDynamicIntentProvider()) { entry in
+//      Covid19WidgetEntryView(entry: entry)
+//    }
+//    .configurationDisplayName("Covid Widget")
+//    .description("Show the latest details on the homescreen")
+//    .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
   }
 }
 
@@ -71,7 +85,6 @@ struct Covid19Widget_Previews: PreviewProvider {
   }
 }
 
-@main
 struct EmojiBundle: WidgetBundle {
   @WidgetBundleBuilder
   var body: some Widget {

@@ -10,16 +10,17 @@ import WidgetKit
 import UIKit
 
 struct GlobalStatsDynamicIntentProvider: IntentTimelineProvider {
+  
   typealias Intent = Covid19DynamicTypeIntent
   typealias Entry = CovidEntry
   
   let service = Covid19APIService.shared
   
-  func placeholder(with: Context) -> CovidEntry {
+  func placeholder(in with: Context) -> CovidEntry {
     CovidEntry.stubs
   }
-  
-  func snapshot(for configuration: Covid19DynamicTypeIntent, with context: Context, completion: @escaping (CovidEntry) -> ()) {
+    
+  func getSnapshot(for configuration: Covid19DynamicTypeIntent, in context: Context, completion: @escaping (CovidEntry) -> Void) {
     if context.isPreview {
       completion(.stubs)
     } else {
@@ -34,7 +35,7 @@ struct GlobalStatsDynamicIntentProvider: IntentTimelineProvider {
     }
   }
   
-  func timeline(for configuration: Covid19DynamicTypeIntent, with context: Context, completion: @escaping (Timeline<CovidEntry>) -> ()) {
+  func getTimeline(for configuration: Covid19DynamicTypeIntent, in context: Context, completion: @escaping (Timeline<CovidEntry>) -> Void) {
     self.callApiService(for: configuration.country?.identifier ?? "italy") { response in
       switch response {
       case .success(let entry):

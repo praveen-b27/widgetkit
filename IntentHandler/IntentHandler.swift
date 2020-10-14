@@ -17,16 +17,17 @@ class IntentHandler: INExtension {
     return self
   }
 }
+
 extension IntentHandler: Covid19DynamicTypeIntentHandling {
   func provideCountryOptionsCollection(for intent: Covid19DynamicTypeIntent, searchTerm: String?, with completion: @escaping (INObjectCollection<Country>?, Error?) -> Void) {
     
     service.getCountries { (response) in
       switch response {
       case .success(let countries):
-        if let _ = searchTerm {
+        if let searchTerm = searchTerm {
           let filteredData: [Country] = countries.filter { (eachCountry) -> Bool in
             if let id = eachCountry.identifier {
-              return id.contains("india")
+              return id.contains(searchTerm)
             }
             return false
           }

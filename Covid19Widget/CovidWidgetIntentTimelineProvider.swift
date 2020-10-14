@@ -9,6 +9,7 @@ import WidgetKit
 import UIKit
 
 struct GlobalStatsIntentProvider: IntentTimelineProvider {
+
   typealias Intent = Covid19WidgetIntent
   typealias Entry = CovidEntry
   
@@ -27,11 +28,11 @@ struct GlobalStatsIntentProvider: IntentTimelineProvider {
     }
   }
   
-  func placeholder(with: Context) -> CovidEntry {
+  func placeholder(in with: Context) -> CovidEntry {
     CovidEntry.stubs
   }
   
-  func snapshot(for configuration: Covid19WidgetIntent, with context: Context, completion: @escaping (CovidEntry) -> ()) {
+  func getSnapshot(for configuration: Covid19WidgetIntent, in context: Context, completion: @escaping (CovidEntry) -> Void) {
     if context.isPreview {
       completion(.stubs)
     } else {
@@ -46,7 +47,7 @@ struct GlobalStatsIntentProvider: IntentTimelineProvider {
     }
   }
   
-  func timeline(for configuration: Covid19WidgetIntent, with context: Context, completion: @escaping (Timeline<CovidEntry>) -> ()) {
+  func getTimeline(for configuration: Covid19WidgetIntent, in context: Context, completion: @escaping (Timeline<CovidEntry>) -> Void) {
     self.callApiService(for: getCountry(for: configuration)) { response in
       switch response {
       case .success(let entry):
